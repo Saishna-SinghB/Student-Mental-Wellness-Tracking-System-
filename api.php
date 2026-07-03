@@ -15,7 +15,7 @@ match($action) {
     default    => jsonResponse(false, 'Invalid action.')
 };
 
-// ─── HELPERS ─────────────────────────────────────────────────────
+// HELPERS 
 
 function jsonResponse(bool $success, string $message, array $data = []): void {
     echo json_encode(['success' => $success, 'message' => $message, 'data' => $data]);
@@ -26,7 +26,7 @@ function sanitize(string $value): string {
     return htmlspecialchars(strip_tags(trim($value)));
 }
 
-// ─── REGISTER ────────────────────────────────────────────────────
+// REGISTER 
 
 function handleRegister(PDO $pdo): void {
     $full_name      = sanitize($_POST['full_name'] ?? '');
@@ -71,7 +71,7 @@ function handleRegister(PDO $pdo): void {
     jsonResponse(true, 'Registration successful. You can now log in.');
 }
 
-// ─── LOGIN ───────────────────────────────────────────────────────
+// LOGIN 
 
 function handleLogin(PDO $pdo): void {
     $email    = sanitize($_POST['email'] ?? '');
@@ -115,14 +115,14 @@ function handleLogin(PDO $pdo): void {
     ]);
 }
 
-// ─── LOGOUT ──────────────────────────────────────────────────────
+//  LOGOUT 
 
 function handleLogout(): void {
     session_destroy();
     jsonResponse(true, 'Logged out successfully.');
 }
 
-// ─── ME ──────────────────────────────────────────────────────────
+// ME
 
 function handleMe(PDO $pdo): void {
     if (empty($_SESSION['user_id'])) {
