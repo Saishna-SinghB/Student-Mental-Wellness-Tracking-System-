@@ -1,48 +1,42 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Log in — WellnessHub</title>
-  <link rel="stylesheet" href="css/style.css" />
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Login - WellnessHub</title>
+<link rel="stylesheet" href="style.css">
 </head>
 <body>
-
   <main class="screen">
-    <div class="card">
+    <h1 class="form-title">Welcome Back</h1>
+    <p class="form-subtitle">Login to your account</p>
 
-      <div class="brand">
-        <span class="brand-mark" aria-hidden="true">🌿</span>
-        <span class="brand-name">WellnessHub</span>
+    <form id="loginForm" onsubmit="return validateLoginForm(event)" novalidate>
+      <div class="field">
+        <label for="loginEmail">University Email</label>
+        <input type="email" id="loginEmail" name="loginEmail" placeholder="name@richfield.ac.za">
+        <div class="field-error" id="loginEmail-error"></div>
       </div>
 
-      <h2>Welcome back</h2>
-      <p class="hint" style="margin-top:-8px; margin-bottom:18px;">Log in to continue your wellness check ins.</p>
+      <div class="field">
+        <label for="loginPassword">Password</label>
+        <input type="password" id="loginPassword" name="loginPassword" placeholder="••••••••">
+        <div class="field-error" id="loginPassword-error"></div>
+      </div>
 
-      <div id="login-banner" class="status-banner" role="status" aria-live="polite"></div>
+      <p class="forgot-link"><a href="#">Forgot Password?</a></p>
 
-      <form id="login-form" novalidate>
-        <div class="field">
-          <label for="login-email">Email address</label>
-          <input type="email" id="login-email" name="email" autocomplete="email" />
-          <p class="error-text" id="login-email-error" aria-live="polite"></p>
-        </div>
+      <button type="submit" class="btn btn-primary">Login</button>
+    </form>
 
-        <div class="field">
-          <label for="login-password">Password</label>
-          <input type="password" id="login-password" name="password" autocomplete="current-password" />
-          <p class="error-text" id="login-password-error" aria-live="polite"></p>
-        </div>
+    <p class="divider">or login with</p>
+    <button type="button" class="btn btn-outline" onclick="biometricLogin()">◎ Biometric Login</button>
 
-        <button type="submit" class="btn btn-primary">Log in</button>
-      </form>
+    <p class="legal-note">By continuing, you agree to our <a href="#">Privacy Policy</a> and <a href="#">POPIA Compliance</a>.</p>
 
-      <p class="form-footer">
-        Don't have an account? <a href="register.html">Create one</a>
-      </p>
-    </div>
+    <p class="footer-note">Don't have an account? <a href="register.html">Create Account</a></p>
   </main>
 
-  <script src="js/script.js"></script>
+  <script src="app.js"></script>
 </body>
 </html>
