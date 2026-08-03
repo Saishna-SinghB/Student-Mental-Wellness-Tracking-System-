@@ -80,3 +80,92 @@ function validateLoginForm(event) {
 function biometricLogin() {
   alert("Biometric login is not yet implemented - coming in a later sprint.");
 }
+ 
+
+function initDashboard() {
+  checkAuth();
+  initMoodCheckin();
+}
+
+async function checkAuth() {
+  const greetingEl = document.getElementById("userGreeting");
+
+  try {
+    const res = await fetch("api.php?action=me");
+    const data = await res.json();
+
+    if (data.success) {
+      if (greetingEl) greetingEl.textContent = "Welcome back, " + data.data.full_name;
+    } else {
+      goTo("login.html");
+    }
+  } catch (err) {
+    
+    console.warn("Could not verify session:", err);
+  }
+}
+
+async function logout() {
+  try {
+    await fetch("api.php?action=logout");
+  } catch (err) {
+    console.warn("Logout request failed:", err);
+  }
+  goTo("index.html");
+}
+
+
+
+let selectedMoodLabel = "Okay";
+
+function initMoodCheckin() {
+  const emojiButtons = document.querySelectorAll(".mood-emoji");
+  const moodSlider = document.getElementById("moodSlider");
+  const stressSlider = document.getElementById("stressSlider");
+  const moodScoreValue = document.getElementById("moodScoreValue");
+  const stressValue = document.getElementById("stressValue");
+
+  emojiButtons.forEach((btn) => {
+    btn.addEventListener("click", () => {
+      emojiButtons.forEach((b) => b.classList.remove("selected"));
+      btn.classList.add("selected");
+      selectedMoodLabel = btn.dataset.label;
+      if (moodSlider) {
+        moodSlider.value = btn.dataset.score;
+        moodScoreValue.textContent = moodSlider.value;
+      }
+    });
+  });
+
+  if (moodSlider) {
+    moodSlider.addEventListener("input", () => {
+      moodScoreValue.textContent = moodSlider.value;
+    });
+  }
+
+  if (stressSlider) {
+    stressSlider.addEventListener("input", () => {
+      stressValue.textContent = stressSlider.value;
+    });
+  }
+}
+
+function submitMoodCheckin() {
+  const moodSlider = document.getElementById("moodSlider");
+  const stressSlider = document.getElementById("stressSlider");
+  const statusEl = document.getElementById("moodStatus");
+
+  const payload = {
+    mood_score: Number(moodSlider.value),
+    mood_label: selectedMoodLabel,
+    stress_level: Number(stressSlider.value),
+    date: new Date().toISOString().slice(0, 10)
+  };
+
+ 
+  const history = JSON.parse(localStorage.getItem("moodCheckins") || "[]");
+  history.push(payload);
+  localStorage.setItem("moodCheckins", JSON.stringify(history));
+
+  if (statusEl) statusEl.textContent = "Mood logged for today. Thanks for checking in!";
+}

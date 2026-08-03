@@ -7,9 +7,87 @@
 <link rel="stylesheet" href="style.css">
 </head>
 <body>
-  <main class="screen dashboard-stub">
-    <h1>Dashboard</h1>
-    <a class="btn btn-outline" href="index.html">Back to Splash</a>
+  <header class="dashboard-header">
+    <span class="brand-name-sm">WellnessHub</span>
+    <div class="header-actions">
+      <span class="user-greeting" id="userGreeting">Welcome back</span>
+      <button type="button" class="btn btn-outline btn-sm" onclick="logout()">Logout</button>
+    </div>
+  </header>
+
+  <main class="screen dashboard">
+
+    
+    <section class="mood-card">
+      <h2>How are you feeling today?</h2>
+      <p class="mood-subtitle">Your daily check-in helps us support you better.</p>
+
+      <div class="mood-emoji-row" id="moodEmojiRow">
+        <button type="button" class="mood-emoji" data-label="Struggling" data-score="2">
+          <span class="mood-emoji-icon">😢</span><span>Struggling</span>
+        </button>
+        <button type="button" class="mood-emoji" data-label="Low" data-score="4">
+          <span class="mood-emoji-icon">🙁</span><span>Low</span>
+        </button>
+        <button type="button" class="mood-emoji selected" data-label="Okay" data-score="6">
+          <span class="mood-emoji-icon">😐</span><span>Okay</span>
+        </button>
+        <button type="button" class="mood-emoji" data-label="Good" data-score="8">
+          <span class="mood-emoji-icon">🙂</span><span>Good</span>
+        </button>
+        <button type="button" class="mood-emoji" data-label="Great" data-score="10">
+          <span class="mood-emoji-icon">😄</span><span>Great</span>
+        </button>
+      </div>
+
+      <div class="mood-slider-block">
+        <label for="moodSlider">Mood intensity: <span id="moodScoreValue">6</span>/10</label>
+        <input type="range" id="moodSlider" min="1" max="10" value="6">
+      </div>
+
+      <div class="mood-slider-block">
+        <label for="stressSlider">Stress level: <span id="stressValue">3</span>/10</label>
+        <input type="range" id="stressSlider" min="1" max="10" value="3">
+      </div>
+
+      <button type="button" class="btn btn-primary" id="moodSubmitBtn" onclick="submitMoodCheckin()">Log today's mood</button>
+      <p class="mood-status" id="moodStatus"></p>
+    </section>
+
+    <section class="quick-links">
+      <a class="quick-link-card" href="#" aria-disabled="true">
+        <span class="quick-link-icon">📓</span>
+        <span>Journal</span>
+      </a>
+      <a class="quick-link-card" href="#" aria-disabled="true">
+        <span class="quick-link-icon">📚</span>
+        <span>Self-Help Library</span>
+      </a>
+      <a class="quick-link-card" href="#" aria-disabled="true">
+        <span class="quick-link-icon">💬</span>
+        <span>Peer Support</span>
+      </a>
+      <a class="quick-link-card" href="#" aria-disabled="true">
+        <span class="quick-link-icon">📅</span>
+        <span>Book Counselling</span>
+      </a>
+      <a class="quick-link-card" href="#" aria-disabled="true">
+        <span class="quick-link-icon">🏆</span>
+        <span>Achievements</span>
+      </a>
+    </section>
+
+    <section class="trend-placeholder">
+      <h3>Your mood trend</h3>
+      <p>Mood trend charts and check-in history will be added in Sprint 3.</p>
+    </section>
+
+    <a class="btn btn-outline back-link" href="index.html">Back to Splash</a>
   </main>
+
+  <script src="app.js"></script>
+  <script>
+    document.addEventListener("DOMContentLoaded", initDashboard);
+  </script>
 </body>
 </html>
